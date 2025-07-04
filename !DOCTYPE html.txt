@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快乐！专属你的祝福</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+        .heart {
+            color: #ff3e6c;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #ff3e6c;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .message {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .cake {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+        }
+        .btn {
+            background: #ff3e6c;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #ff6b85;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,62,108,0.3);
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff3e6c;
+            opacity: 0.7;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="heart">💖</div>
+        <h1>[唐湘沂大小姐]，生日快乐！</h1>
+        < img src="https://picsum.photos/200/200?random=1" alt="生日蛋糕" class="cake">
+        <div class="message">
+            今天是属于我们唐大小姐的特别日子，愿所有的美好都围绕着你～<br>
+            新的一岁，愿你天天开心，万事顺意，每一个梦想都能闪闪发光！<br>
+            记得吃一块甜甜的蛋糕，收下这份满满的祝福呀～
+        </div>
+        <button class="btn" id="blessBtn">点击查收更多祝福</button>
+    </div>
+
+    <script>
+        // 点击按钮触发 confetti 效果
+        document.getElementById('blessBtn').addEventListener('click', function() {
+            alert('生日快乐呀～愿你新的一岁每天都像蛋糕一样甜！');
+            createConfetti();
+        });
+
+        // 生成 confetti 动画
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animation = `fall${Math.floor(Math.random() * 3) + 1} ${2 + Math.random() * 3}s linear forwards`;
+                confetti.style.backgroundColor = getRandomColor();
+                document.body.appendChild(confetti);
+
+                // 随机颜色
+                function getRandomColor() {
+                    const colors = ['#ff3e6c', '#ff9966', '#ffcc66', '#99ff99', '#66b3ff', '#cc99ff'];
+                    return colors[Math.floor(Math.random() * colors.length)];
+                }
+            }
+
+            // 添加动画样式
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall1 {
+                    0% { top: -10vh; transform: rotate(0deg); }
+                    100% { top: 100vh; transform: rotate(360deg); }
+                }
+                @keyframes fall2 {
+                    0% { top: -10vh; transform: rotate(10deg); }
+                    100% { top: 100vh; transform: rotate(720deg); }
+                }
+                @keyframes fall3 {
+                    0% { top: -10vh; transform: rotate(-10deg); }
+                    100% { top: 100vh; transform: rotate(-360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // 3秒后清除 confetti
+            setTimeout(() => {
+                const confetti = document.querySelectorAll('.confetti');
+                confetti.forEach(item => item.remove());
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
